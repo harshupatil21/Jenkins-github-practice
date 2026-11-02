@@ -13,16 +13,18 @@ pipeline {
 
         stage('Build') {
             steps {
-                echo 'Building the application'
+                echo 'Building application'
                 sh 'ls -la'
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Testing the application'
+                echo 'Running application tests'
+
                 sh 'test -f index.html'
                 sh 'grep -q "Hello Jenkins" index.html'
+
                 echo 'All tests passed!'
             }
         }
@@ -30,21 +32,32 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying application'
+
                 sh '''
                     mkdir -p deploy-demo
                     cp index.html deploy-demo/
                 '''
-                echo 'Demo deployment completed'
+
+                echo 'Deployment completed!'
             }
         }
     }
 
     post {
         success {
-            echo 'Pipeline completed successfully!'
+            echo 'SUCCESS: Pipeline completed!'
         }
 
         failure {
+            echo 'FAILURE: Pipeline failed!'
+        }
+
+        always {
+            echo 'Pipeline execution finished.'
+        }
+    }
+}
+
             echo 'Pipeline failed!'
         }
     }
