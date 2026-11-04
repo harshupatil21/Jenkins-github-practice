@@ -29,7 +29,7 @@ pipeline {
                 echo 'Running application tests'
 
                 sh 'test -f index.html'
-                sh 'grep -q "wrong text" index.html'
+                sh 'grep -q "hello jenkins" index.html'
 
                 echo 'All tests passed!'
             }
