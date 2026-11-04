@@ -11,15 +11,20 @@ pipeline {
                 checkout scm
             }
         }
-
         stage('Build') {
-            steps {
-                echo 'Building application'
-                sh 'ls -la'
-            }
-        }
+    steps {
+        echo 'Building application'
 
-        stage('Test') {
+        echo "Job Name: ${env.JOB_NAME}"
+        echo "Build Number: ${env.BUILD_NUMBER}"
+        echo "Build URL: ${env.BUILD_URL}"
+        echo "Workspace: ${env.WORKSPACE}"
+
+        sh 'ls -la'
+    }
+}
+
+         stage('Test') {
             steps {
                 echo 'Running application tests'
 
